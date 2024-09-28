@@ -6,8 +6,8 @@ public class Movie {
     private String overview;
     private String release_date;
     private double vote_average;
+    private String poster_path;
 
-    // Getters y Setters
     public int getId() {
         return id;
     }
@@ -46,5 +46,13 @@ public class Movie {
 
     public void setVoteAverage(double vote_average) {
         this.vote_average = vote_average;
+    }
+
+    public String getPosterPath() {
+        return poster_path;
+    }
+
+    public void setPosterPath(String poster_path) {
+        this.poster_path = poster_path;
     }
 }
