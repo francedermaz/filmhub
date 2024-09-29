@@ -1,5 +1,7 @@
 package com.example.filmhub.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.filmhub.R;
 import com.example.filmhub.models.Movie;
+import com.example.filmhub.ui.MovieDetailActivity;
 
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
     private List<Movie> movieList;
+    private Context context;
 
-    public MovieAdapter(List<Movie> movieList) {
+    public MovieAdapter(Context context, List<Movie> movieList) {
+        this.context = context;
         this.movieList = movieList;
     }
 
@@ -45,13 +50,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         Movie movie = movieList.get(position);
 
-        String posterPath = "https://image.tmdb.org/t/p/w500" + movie.getPosterPath();
+        if (movie != null) {
+            String posterPath = "https://image.tmdb.org/t/p/w500" + movie.getPosterPath();
 
-        Glide.with(holder.itemView.getContext())
-                .load(posterPath)
-                .into(holder.imageViewPoster);
+            Glide.with(holder.itemView.getContext())
+                    .load(posterPath)
+                    .into(holder.imageViewPoster);
 
-        holder.textViewTitle.setText(movie.getTitle());
+            holder.textViewTitle.setText(movie.getTitle());
+
+            holder.imageViewPoster.setOnClickListener(v -> {
+                Intent intent = new Intent(holder.itemView.getContext(), MovieDetailActivity.class);
+                intent.putExtra("title", movie.getTitle());
+                intent.putExtra("overview", movie.getOverview());
+                intent.putExtra("posterPath", movie.getPosterPath());
+                holder.itemView.getContext().startActivity(intent);
+            });
+        }
     }
 
     @Override
