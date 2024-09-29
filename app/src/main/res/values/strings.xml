@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">FilmHub</string>
+    <string name="moment_films">Current Movies</string>
+    <string name="my_favorites">My Favorites</string>
+    <string name="back">Back</string>
+    <string name="release_date">Release Date</string>
+    <string name="vote_average">Rating</string>
+    <string name="film_title">Movie Title</string>
+    <string name="poster_title">Movie Poster</string>
 </resources>

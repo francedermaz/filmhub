@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/header_layout"
-        android:text="Las Películas del Momento"
+        android:text="@string/moment_films"
         android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center"

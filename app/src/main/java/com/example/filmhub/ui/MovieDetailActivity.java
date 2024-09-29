@@ -60,11 +60,11 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
 
         if (releaseDate != null) {
-            textViewReleaseDate.setText("Fecha de lanzamiento: " + releaseDate);
+            textViewReleaseDate.setText(getString(R.string.release_date) + ": " + releaseDate);
         }
 
         if (voteAverage != null) {
-            textViewVoteAverage.setText("Calificación: " + voteAverage);
+            textViewVoteAverage.setText(getString(R.string.vote_average) + ": " + voteAverage);
         }
     }
 
