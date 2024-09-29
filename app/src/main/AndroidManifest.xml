@@ -28,6 +28,8 @@
             android:name=".ui.MovieDetailActivity"
             android:exported="true" />
 
+        <activity android:name=".ui.FavoritesActivity" />
+
     </application>
 
 </manifest>

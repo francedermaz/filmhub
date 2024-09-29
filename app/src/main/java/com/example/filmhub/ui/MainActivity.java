@@ -1,7 +1,11 @@
 package com.example.filmhub.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +26,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
+    private TextView textViewFavorites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,16 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(movieAdapter);
 
         loadPopularMovies();
+
+        textViewFavorites = findViewById(R.id.text_view_favorites);
+
+        textViewFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FavoritesActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadPopularMovies() {

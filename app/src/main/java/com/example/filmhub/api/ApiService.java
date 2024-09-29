@@ -33,4 +33,7 @@ public interface ApiService {
             return movieId;
         }
     }
+
+    @GET("favorites")
+    Call<List<Movie>> getFavorites();
 }

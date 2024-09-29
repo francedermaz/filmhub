@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,6 +34,8 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private boolean isFavorite;
     private int movieId;
+
+    private TextView textViewFavorites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,16 @@ public class MovieDetailActivity extends AppCompatActivity {
         buttonFavorite.setOnClickListener(v -> {
             if (!isFavorite) {
                 addMovieToFavorites(movieId);
+            }
+        });
+
+        textViewFavorites = findViewById(R.id.text_view_favorites);
+
+        textViewFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MovieDetailActivity.this, FavoritesActivity.class);
+                startActivity(intent);
             }
         });
     }
