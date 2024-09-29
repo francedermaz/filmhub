@@ -64,6 +64,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 intent.putExtra("title", movie.getTitle());
                 intent.putExtra("overview", movie.getOverview());
                 intent.putExtra("posterPath", movie.getPosterPath());
+                intent.putExtra("releaseDate", movie.getReleaseDate() != null ? movie.getReleaseDate() : "N/A"); // Agregando la fecha de lanzamiento
+                intent.putExtra("voteAverage", String.valueOf(movie.getVoteAverage())); // Agregando la calificación
                 holder.itemView.getContext().startActivity(intent);
             });
         }
