@@ -2,7 +2,7 @@
     <string name="app_name">FilmHub</string>
     <string name="moment_films">Las películas del momento</string>
     <string name="my_favorites">Mis favoritas</string>
-    <string name="back">Volver</string>
+    <string name="back">Volver al inicio</string>
     <string name="release_date">Fecha de lanzamiento</string>
     <string name="vote_average">Calificación</string>
     <string name="film_title">Título de la Película</string>

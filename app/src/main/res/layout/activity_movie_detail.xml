@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/back"
+        android:layout_gravity="center"
         android:layout_margin="16dp"/>
 
     <ImageView
@@ -27,7 +28,7 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:id="@+id/text_view_release_date"
@@ -53,9 +54,9 @@
 
     <Button
         android:id="@+id/button_favorite"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_to_favorites"
-        android:layout_marginTop="12dp" />
-
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/orange_button"
+        android:text="@string/add_to_favorites" />
 </LinearLayout>
