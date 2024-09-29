@@ -13,6 +13,8 @@ FilmHub es una aplicación Android desarrollada en Java utilizando Android Studi
 
 ## Capturas de Pantalla
 
+<div style="display: flex;">
 <img src="https://i.ibb.co/zh4Xpb9/img2android.png" alt="Pantalla Principal" width="200"/>
 <img src="https://i.ibb.co/vzF6pV4/img1android.png" alt="Detalles de la Película" width="200"/>
 <img src="https://i.ibb.co/Nx15SPV/img3android.png" alt="Favoritas" width="200"/>
+</div>
