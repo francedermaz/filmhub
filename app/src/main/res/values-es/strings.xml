@@ -9,4 +9,8 @@
     <string name="poster_title">Poster de la película</string>
     <string name="add_to_favorites">Agregar a favoritas</string>
     <string name="your_favs">Tus películas favoritas</string>
+    <string name="added_to_favorites">Película añadida a favoritos.</string>
+    <string name="already_in_favorites">Esta película ya está en favoritos.</string>
+    <string name="error_adding_favorite">Error al añadir a favoritos: %1$s</string>
+    <string name="api_call_error">Error en la llamada API: %1$s</string>
 </resources>

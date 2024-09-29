@@ -1,16 +1,17 @@
 package com.example.filmhub.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.snackbar.Snackbar;
 
 import com.bumptech.glide.Glide;
 import com.example.filmhub.R;
@@ -83,7 +84,10 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         buttonFavorite.setOnClickListener(v -> {
             if (!isFavorite) {
+                showSnackbar(getString(R.string.added_to_favorites),false);
                 addMovieToFavorites(movieId);
+            } else {
+                showSnackbar(getString(R.string.already_in_favorites),true);
             }
         });
 
@@ -118,20 +122,20 @@ public class MovieDetailActivity extends AppCompatActivity {
             public void onResponse(Call<FavoriteResponse> call, Response<FavoriteResponse> response) {
                 if (response.isSuccessful()) {
                     isFavorite = true;
-                    Log.i("MovieDetailActivity", "Película añadida a favoritos con éxito.");
-                    Toast.makeText(MovieDetailActivity.this, "Película añadida a favoritos.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Log.e("MovieDetailActivity", "Error al añadir a favoritos: " + response.message());
-                    Toast.makeText(MovieDetailActivity.this, "Error al añadir a favoritos: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<FavoriteResponse> call, Throwable t) {
                 Log.e("MovieDetailActivity", "Error en la llamada API: " + t.getMessage());
-                Toast.makeText(MovieDetailActivity.this, "Error en la llamada API: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void showSnackbar(String message, boolean isError) {
+        View rootView = findViewById(android.R.id.content);
+        Snackbar snackbar = Snackbar.make(rootView, message, Snackbar.LENGTH_SHORT);
+        snackbar.show();
     }
 
     @Override

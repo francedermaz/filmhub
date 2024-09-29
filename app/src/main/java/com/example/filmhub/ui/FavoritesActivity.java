@@ -2,6 +2,7 @@ package com.example.filmhub.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -63,13 +64,13 @@ public class FavoritesActivity extends AppCompatActivity {
                     favoritesAdapter = new FavoritesAdapter(favoriteMovies);
                     recyclerViewFavorites.setAdapter(favoritesAdapter);
                 } else {
-                    Toast.makeText(FavoritesActivity.this, "No se pudieron cargar las películas favoritas.", Toast.LENGTH_SHORT).show();
+                    Log.e("FavoritesActivity", "Error cargando las películas");
                 }
             }
 
             @Override
             public void onFailure(Call<List<Movie>> call, Throwable t) {
-                Toast.makeText(FavoritesActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("FavoritesActivity", "Error en la llamada API: " + t.getMessage());
             }
         });
     }
