@@ -7,6 +7,15 @@ public class Movie {
     private String release_date;
     private double vote_average;
     private String poster_path;
+    private boolean isFavorite;
+
+    public boolean getIsFavorite() {
+        return isFavorite;
+    }
+
+    public void setIsFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
+    }
 
     public int getId() {
         return id;

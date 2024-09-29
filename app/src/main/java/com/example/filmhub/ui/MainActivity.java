@@ -11,7 +11,6 @@ import com.example.filmhub.adapters.MovieAdapter;
 import com.example.filmhub.api.ApiClient;
 import com.example.filmhub.api.ApiService;
 import com.example.filmhub.models.Movie;
-import com.example.filmhub.models.MovieResponse;
 
 import java.util.List;
 import java.util.Locale;
@@ -23,9 +22,6 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
-
-    // Esto NO debería estar ACA!!! Lo dejo para que puedan probar la app
-    private final String API_KEY = "50496d349af7ede42dc06e6fb73c7cce";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +46,13 @@ public class MainActivity extends AppCompatActivity {
 
         String language = lang + "-" + region;
 
-        Call<MovieResponse> call = apiService.getPopularMovies(API_KEY, language, region);
+        Call<List<Movie>> call = apiService.getPopularMovies(language, region);
 
-        call.enqueue(new Callback<MovieResponse>() {
+        call.enqueue(new Callback<List<Movie>>() {
             @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+            public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Movie> movies = response.body().getResults();
+                    List<Movie> movies = response.body();
                     movieAdapter.setMovies(movies);
                 } else {
                     Log.e("MainActivity", "Error en la respuesta: " + response.message());
@@ -64,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
+            public void onFailure(Call<List<Movie>> call, Throwable t) {
                 Log.e("MainActivity", "Error en la llamada API: " + t.getMessage());
             }
         });
