@@ -36,6 +36,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private int movieId;
 
     private TextView textViewFavorites;
+    private ImageView imageViewLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,12 +88,22 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
 
         textViewFavorites = findViewById(R.id.text_view_favorites);
+        imageViewLogo = findViewById(R.id.image_view_logo);
 
         textViewFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MovieDetailActivity.this, FavoritesActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        imageViewLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MovieDetailActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

@@ -1,6 +1,9 @@
 package com.example.filmhub.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +27,7 @@ public class FavoritesActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewFavorites;
     private FavoritesAdapter favoritesAdapter;
+    private ImageView imageViewLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,17 @@ public class FavoritesActivity extends AppCompatActivity {
         recyclerViewFavorites.setLayoutManager(new LinearLayoutManager(this));
 
         fetchFavorites();
+
+        imageViewLogo = findViewById(R.id.image_view_logo);
+
+        imageViewLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FavoritesActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void fetchFavorites() {
