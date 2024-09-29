@@ -7,4 +7,5 @@
     <string name="vote_average">Calificación</string>
     <string name="film_title">Título de la Película</string>
     <string name="poster_title">Poster de la película</string>
+    <string name="add_to_favorites">Agregar a favoritas</string>
 </resources>
