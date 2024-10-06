@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,7 +14,6 @@ import com.example.filmhub.R;
 import com.example.filmhub.adapters.FavoritesAdapter;
 import com.example.filmhub.api.ApiClient;
 import com.example.filmhub.api.ApiService;
-import com.example.filmhub.models.FavoriteResponse;
 import com.example.filmhub.models.Movie;
 
 import java.util.List;
@@ -42,13 +40,10 @@ public class FavoritesActivity extends AppCompatActivity {
 
         imageViewLogo = findViewById(R.id.image_view_logo);
 
-        imageViewLogo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FavoritesActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        imageViewLogo.setOnClickListener(v -> {
+            Intent intent = new Intent(FavoritesActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 
@@ -61,7 +56,7 @@ public class FavoritesActivity extends AppCompatActivity {
             public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Movie> favoriteMovies = response.body();
-                    favoritesAdapter = new FavoritesAdapter(favoriteMovies);
+                    favoritesAdapter = new FavoritesAdapter(FavoritesActivity.this, favoriteMovies);
                     recyclerViewFavorites.setAdapter(favoritesAdapter);
                 } else {
                     Log.e("FavoritesActivity", "Error cargando las películas");

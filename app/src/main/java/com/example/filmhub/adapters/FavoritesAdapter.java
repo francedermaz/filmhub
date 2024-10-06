@@ -1,5 +1,7 @@
 package com.example.filmhub.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.filmhub.R;
 import com.example.filmhub.models.Movie;
+import com.example.filmhub.ui.MovieDetailActivity;
 
 import java.util.List;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.ViewHolder> {
 
     private List<Movie> movies;
+    private Context context;
 
-    public FavoritesAdapter(List<Movie> movies) {
+    public FavoritesAdapter(Context context, List<Movie> movies) {
+        this.context = context;
         this.movies = movies;
     }
 
@@ -38,7 +43,9 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         Glide.with(holder.imageViewPoster.getContext()).load(imageUrl).into(holder.imageViewPoster);
 
         holder.itemView.setOnClickListener(v -> {
-            // TODO Navegar a detalle de película
+            Intent intent = new Intent(context, MovieDetailActivity.class);
+            intent.putExtra("movieId", movie.getId());
+            context.startActivity(intent);
         });
     }
 

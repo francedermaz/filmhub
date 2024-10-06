@@ -35,6 +35,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView textViewVoteAverage;
     private Button buttonBack;
     private Button buttonFavorite;
+    private TextView textViewFavorites;
+    private ImageView imageViewLogo;
 
     private boolean isFavorite;
     private int movieId;
@@ -69,6 +71,26 @@ public class MovieDetailActivity extends AppCompatActivity {
                 addMovieToFavorites(movieId);
             } else {
                 showSnackbar(getString(R.string.already_in_favorites), true);
+            }
+        });
+
+        textViewFavorites = findViewById(R.id.text_view_favorites);
+        imageViewLogo = findViewById(R.id.image_view_logo);
+
+        textViewFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MovieDetailActivity.this, FavoritesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MovieDetailActivity.this, FavoritesActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
