@@ -3,11 +3,10 @@ package com.example.filmhub.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.filmhub.R;
@@ -34,7 +33,9 @@ public class FavoritesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_favorites);
 
         recyclerViewFavorites = findViewById(R.id.recycler_view_favorites);
-        recyclerViewFavorites.setLayoutManager(new LinearLayoutManager(this));
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        recyclerViewFavorites.setLayoutManager(gridLayoutManager);
 
         fetchFavorites();
 
