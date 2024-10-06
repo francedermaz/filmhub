@@ -1,7 +1,6 @@
 package com.example.filmhub.ui;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -11,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.filmhub.models.Movie;
 import com.google.android.material.snackbar.Snackbar;
 
 import com.bumptech.glide.Glide;
@@ -18,6 +19,8 @@ import com.example.filmhub.R;
 import com.example.filmhub.api.ApiClient;
 import com.example.filmhub.api.ApiService;
 import com.example.filmhub.models.FavoriteResponse;
+
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,9 +38,6 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private boolean isFavorite;
     private int movieId;
-
-    private TextView textViewFavorites;
-    private ImageView imageViewLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,55 +59,53 @@ public class MovieDetailActivity extends AppCompatActivity {
         buttonBack.setOnClickListener(v -> onBackPressed());
 
         Intent intent = getIntent();
-        String title = intent.getStringExtra("title");
-        String overview = intent.getStringExtra("overview");
-        String posterPath = intent.getStringExtra("posterPath");
-        String releaseDate = intent.getStringExtra("releaseDate");
-        String voteAverage = intent.getStringExtra("voteAverage");
         movieId = intent.getIntExtra("movieId", -1);
-        isFavorite = intent.getBooleanExtra("isFavorite", false);
 
-        if (title != null && overview != null && posterPath != null) {
-            textViewTitle.setText(title);
-            textViewOverview.setText(overview);
-            String imageUrl = "https://image.tmdb.org/t/p/w500" + posterPath;
-            Glide.with(this).load(imageUrl).into(imageViewPoster);
-        }
-
-        if (releaseDate != null) {
-            textViewReleaseDate.setText(getString(R.string.release_date) + ": " + releaseDate);
-        }
-
-        if (voteAverage != null) {
-            textViewVoteAverage.setText(getString(R.string.vote_average) + ": " + voteAverage);
-        }
+        loadMovieDetails(movieId);
 
         buttonFavorite.setOnClickListener(v -> {
             if (!isFavorite) {
-                showSnackbar(getString(R.string.added_to_favorites),false);
+                showSnackbar(getString(R.string.added_to_favorites), false);
                 addMovieToFavorites(movieId);
             } else {
-                showSnackbar(getString(R.string.already_in_favorites),true);
+                showSnackbar(getString(R.string.already_in_favorites), true);
             }
         });
+    }
 
-        textViewFavorites = findViewById(R.id.text_view_favorites);
-        imageViewLogo = findViewById(R.id.image_view_logo);
+    private void loadMovieDetails(int movieId) {
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
-        textViewFavorites.setOnClickListener(new View.OnClickListener() {
+        Locale currentLocale = getResources().getConfiguration().locale;
+        String lang = currentLocale.getLanguage();
+        String region = currentLocale.getCountry();
+        String language = lang + "-" + region;
+
+        Call<Movie> call = apiService.getMovieDetails(movieId, language);
+        call.enqueue(new Callback<Movie>() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MovieDetailActivity.this, FavoritesActivity.class);
-                startActivity(intent);
+            public void onResponse(Call<Movie> call, Response<Movie> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Movie movie = response.body();
+                    textViewTitle.setText(movie.getTitle());
+                    textViewOverview.setText(movie.getOverview());
+                    textViewReleaseDate.setText(getString(R.string.release_date) + ": " + movie.getReleaseDate());
+                    textViewVoteAverage.setText(getString(R.string.vote_average) + ": " + movie.getVoteAverage());
+                    String imageUrl = "https://image.tmdb.org/t/p/w500" + movie.getPosterPath();
+                    Glide.with(MovieDetailActivity.this).load(imageUrl).into(imageViewPoster);
+                    isFavorite = movie.getIsFavorite();
+
+                    if (isFavorite) {
+                        buttonFavorite.setVisibility(View.GONE);
+                    } else {
+                        buttonFavorite.setVisibility(View.VISIBLE);
+                    }
+                }
             }
-        });
 
-        imageViewLogo.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MovieDetailActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+            public void onFailure(Call<Movie> call, Throwable t) {
+                Log.e("MovieDetailActivity", "Error en la llamada API: " + t.getMessage());
             }
         });
     }
@@ -122,6 +120,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             public void onResponse(Call<FavoriteResponse> call, Response<FavoriteResponse> response) {
                 if (response.isSuccessful()) {
                     isFavorite = true;
+                    buttonFavorite.setVisibility(View.GONE);
                 }
             }
 

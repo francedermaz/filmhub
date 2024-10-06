@@ -9,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -36,4 +37,8 @@ public interface ApiService {
 
     @GET("favorites")
     Call<List<Movie>> getFavorites();
+
+    @GET("movies/{id}")
+    Call<Movie> getMovieDetails(@Path("id") int movieId,
+                                @Query("language") String language);
 }
